@@ -26,7 +26,7 @@ phases:
     commands:
       - echo todo is nothing...
       - docker push $REPOSITORY_URI/$CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG
-      - printf '[{"name":"$CMS_CONTAINER_IMAGE","imageUri":"%s"}]' $REPOSITORY_URI/$CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG > cmsOne.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' $CMS_CONTAINER_IMAGE $REPOSITORY_URI/$CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG > cmsOne.json
 
 artifacts:
   files: cmsOne.json
