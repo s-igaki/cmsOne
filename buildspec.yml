@@ -1,9 +1,14 @@
 version: 0.2
 
+env:
+  variables:
+    CMS_CONTAINER_IMAGE_REPO_NAME: "cms-one"
+    CMS_CONTAINER_IMAGE_TAG: "version:1.0"
 phases:
   install:
     commands:
-      - echo todo is nothing...
+      - echo install is nothing...
+      - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
@@ -11,10 +16,10 @@ phases:
   build:
     commands:
       - echo build docker image
-      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
-      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker build -t $CMS_CONTAINER_IMAGE .
+      - docker tag $CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG
   post_build:
     commands:
       - echo todo is nothing...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG
 
