@@ -5,7 +5,6 @@ env:
     CMS_CONTAINER_IMAGE: "cms-one"
     CMS_CONTAINER_IMAGE_REPO_NAME: "cms-one"
     CMS_CONTAINER_IMAGE_TAG: "version:1.0"
-    AWS_ACCOUNT_ID: "154193615937"
 phases:
   install:
     commands:
