@@ -10,19 +10,23 @@ phases:
     commands:
       - echo install is nothing...
       - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
+      - REPOSITORY_URI=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REPOSITORY_URI
       - echo ${DOCKER_HUB_PASSWORD} | docker login -u ${DOCKER_HUB_ID} --password-stdin
 
   build:
     commands:
       - echo build docker image
       - docker build -t $CMS_CONTAINER_IMAGE .
-      - docker tag $CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG
+      - docker tag $CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG $REPOSITORY_URI/$CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG
   post_build:
     commands:
       - echo todo is nothing...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG
+      - docker push $REPOSITORY_URI/$CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG
+      - printf '[{"name":"$CMS_CONTAINER_IMAGE","imageUri":"%s"}]' $REPOSITORY_URI/$CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG > cmsOne.json
 
+artifacts:
+  files: cmsOne.json
