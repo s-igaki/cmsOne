@@ -24,4 +24,3 @@ phases:
       - echo todo is nothing...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CMS_CONTAINER_IMAGE_REPO_NAME:$CMS_CONTAINER_IMAGE_TAG
 
-
