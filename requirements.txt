@@ -1,2 +1,5 @@
+MarkupSafe==2.0.1
 Flask==2.0.1
+PyYAML==5.4.1
+redis==3.5.3
 

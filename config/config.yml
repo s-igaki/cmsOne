@@ -1,0 +1,7 @@
+local:
+  host: 0.0.0.0
+  port: 80
+  debug: True
+prod:
+  port: 80
+  debug: False

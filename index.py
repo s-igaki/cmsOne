@@ -1,10 +1,28 @@
-from libs.flask import Flask
-app = Flask(__name__)
+from flask import Flask
+import yaml
+from app.controller.article_controller import article_api
+import os
+import sys
 
-@app.route("/")
-def index():
-  return "<h1>Hello, Flask!!!!!!</h1>"
+
 
 if __name__ == "__main__":
-  app.run(host="0.0.0.0", port=80, debug=True)
+      # アプリケーション起動
+      app = Flask(__name__)
+
+      # config設定
+      args = sys.argv
+      if (len(args) == 1):
+            app.logger.error('please set env artument')
+            exit(255)
+
+      with open('config/config.yml', 'r') as yml:
+        config = yaml.load(yml)[args[1]]
+      app.config.update(
+        config
+      )
+
+      # controller設定
+      app.register_blueprint(article_api)
+      app.run(host=app.config["host"], port=app.config["port"], debug=app.config["debug"])
 

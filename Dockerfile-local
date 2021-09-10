@@ -1,10 +1,7 @@
 FROM python:3
 
 WORKDIR /app
+COPY ./ /app
 
-VOLUME ./app /app
-
-RUN pip install -r /app/requirements.txt -t libs
-
-CMD ["python", "index.py"]
-
+RUN pip install -r ./requirements.txt
+CMD ["python", "index.py", "local"]

@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  cms-one:
+    build:
+      context: .
+      dockerfile: ${CMS_DOCKER_FILE}
+    ports:
+      - ${CMS_LOCAL_HTTP_PORT}:${CMS_CONTAINER_HTTP_PORT}
+    image: ${CMS_CONTAINER_IMAGE}
+    container_name: ${CMS_CONTAINER_NAME}
+    volumes:
+      - ${CMS_LOCAL_DIR}:${CMS_CONTAINER_DIR}
+
+
+
