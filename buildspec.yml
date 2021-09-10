@@ -9,7 +9,7 @@ phases:
   install:
     commands:
       - echo install is nothing...
-      - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
+      # - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
