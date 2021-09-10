@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-  CMS_CONTAINER_IMAGE: "cms-one"
+    CMS_CONTAINER_IMAGE: "cms-one"
     CMS_CONTAINER_IMAGE_REPO_NAME: "cms-one"
     CMS_CONTAINER_IMAGE_TAG: "version:1.0"
 phases:
